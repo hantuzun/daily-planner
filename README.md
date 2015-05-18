@@ -9,13 +9,14 @@ It has a one page LaTeX file that needs a `jobname` file to get its `date` strin
 The script generates human readable dates between given two dates and writes them in individual `jobname` files in `temp` directory. Then, it runs `pdflatex` for each of these generated date strings and generates corresponding PDF files in the same directory. Finally, it merges these pdf files into one and removes the `temp` directory.
 
 ### Dependencies
+ - TeX Live or MikTeX
  - Python 3
  - [PyPDF2](http://mstamy2.github.io/PyPDF2/)
- - pdflatex
 
 ### Instructions 
- - Set `first_day` and `last_day` variables in `daily_planner.py`.
+ - Set `first_day` and `last_day` in `daily_planner.py`.
  - Run the script with `python3 daily_planner.py`.
+ - Check out the generated file: [`output.pdf`](output.pdf).
 
 ## License
-MIT.
+[MIT](LICENSE).
