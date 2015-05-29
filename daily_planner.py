@@ -1,8 +1,11 @@
+import json
 import os
 import shlex
 import shutil
 import subprocess
+from utils import escape_for_tex
 from datetime import date, timedelta
+from dateutil.parser import parse
 from PyPDF2 import PdfFileReader, PdfFileMerger
 
 # Create a directory for temporary files
@@ -11,11 +14,14 @@ output_file = 'output.pdf'
 shutil.rmtree(files_dir, ignore_errors=True)
 os.makedirs(files_dir)
 
-# Set parameters
-author = 'Emrehan T\\"uz\\"un'
-first_day = date(2015, 6, 1)
-last_day = date(2015, 8, 31)
 
+with open('config.json') as config_file:    
+    config = json.load(config_file)
+
+# Set parameters
+author = escape_for_tex(config['author'])
+first_day = parse(config['first_day'], dayfirst=True).date()
+last_day = parse(config['last_day'], dayfirst=True).date()
 
 # Create a data file for the cover page
 cover_data = os.path.join(files_dir, 'cover')
