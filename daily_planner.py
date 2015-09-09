@@ -37,10 +37,12 @@ subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + cover
 dates = [first_day + timedelta(days=x) for x in range((last_day-first_day).days + 1)]
 for d in dates:
     file_name = os.path.join(files_dir, str(d) + '.txt')
+    date = d.strftime('%-d %B')
+    day_of_week = d.strftime('%A')
     with open(file_name, 'wb') as f:
-        f.write(bytes('\\def\\date{' + d.strftime('%-d %B') + '}\n', 'UTF-8'))
-        f.write(bytes('\\def\\dayOfWeek{' + d.strftime('%A') + '}\n', 'UTF-8'))
-    subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + file_name + ' daily-planner.tex')).communicate()
+        f.write(bytes('\\def\\date{' + date + '}\n', 'UTF-8'))
+        f.write(bytes('\\def\\dayOfWeek{' + day_of_week + '}\n', 'UTF-8'))
+    subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + file_name + ' days/' +  day_of_week + '.tex')).communicate()
 
 # Merge pdf files into one
 merger = PdfFileMerger()

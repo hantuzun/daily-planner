@@ -7,6 +7,10 @@ I use this daily planner to keep track of my daily occupations. I use `Schedule`
 ## How can I use it?
 Edit the parameters in [config.json](config.json) and run `daily_planner.py`.
 
+```
+python3 daily_planner.py && open output.pdf
+```
+
 
 ## How it works?
 It has a one page LaTeX file that needs a `jobname` file to get its `date` string. This string is the title of the page. 
