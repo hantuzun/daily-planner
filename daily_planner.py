@@ -31,26 +31,16 @@ with open(cover_data, 'wb') as f:
     f.write(bytes('\\def\\lastDay{' + last_day.strftime('%-d %B %Y') + '}\n', 'UTF-8'))
 
 # Create the cover page pdf
-print('Creating cover page')
 subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + cover_data + ' cover.tex')).communicate()
-print()
-
-# Create data files for date pages
-dates = [first_day + timedelta(days=x) for x in range((last_day-first_day).days + 1)]
-for d in dates:
-    f = str(d) + '.txt'
-    directory = os.path.join(files_dir, f)
-    with open(directory, 'wb') as f:
-        f.write(bytes('\\def\\date{' + d.strftime('%-d %B') + '}\n', 'UTF-8'))
-        f.write(bytes('\\def\\dayOfWeek{' + d.strftime('%A') + '}\n', 'UTF-8'))
 
 # Create pdf files using daily-planner.tex and date files
-txt_files = [f for f in os.listdir(files_dir) if f.endswith('txt')]
-for f in txt_files:
-    directory = os.path.join(files_dir, f)
-    print('Creating ' + f + ' page')
-    subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + directory + ' daily-planner.tex')).communicate()
-    print()
+dates = [first_day + timedelta(days=x) for x in range((last_day-first_day).days + 1)]
+for d in dates:
+    file_name = os.path.join(files_dir, str(d) + '.txt')
+    with open(file_name, 'wb') as f:
+        f.write(bytes('\\def\\date{' + d.strftime('%-d %B') + '}\n', 'UTF-8'))
+        f.write(bytes('\\def\\dayOfWeek{' + d.strftime('%A') + '}\n', 'UTF-8'))
+    subprocess.Popen(shlex.split('pdflatex -interaction=batchmode -jobname=' + file_name + ' daily-planner.tex')).communicate()
 
 # Merge pdf files into one
 merger = PdfFileMerger()
@@ -64,7 +54,7 @@ for f in pdf_files:
     merger.append(PdfFileReader(os.path.join(files_dir, f), 'rb'))
 
 merger.write(output_file)
-print(output_file + ' is created')
+print(output_file + ' is created \n')
 
 # Remove temporary files
 shutil.rmtree(files_dir, ignore_errors=True)
