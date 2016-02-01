@@ -1,0 +1,6 @@
+unicode_tex
+python-dateutil
+PyPDF2
+pdflatex
+
+wheel==0.26.0
