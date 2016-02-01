@@ -8,21 +8,20 @@ I use this daily planner to keep track of my daily occupations. I use `Schedule`
 Edit the parameters in [config.json](config.json) and run `daily_planner.py`.
 
 ```
+sudo pip3 install -r requirements.txt
 python3 daily_planner.py && open output.pdf
 ```
+
+
+### Dependencies
+ - Python 3
+ - TexLive or MikTeX. Comes with `pdflatex` command line tool. (Included in MacTeX)
 
 
 ## How it works?
 It has a one page LaTeX file that needs a `jobname` file to get its `date` string. This string is the title of the page. 
 
 The script generates human readable dates between given two dates and writes them in individual `jobname` files in `temp` directory. Then, it runs `pdflatex` for each of these generated date strings and generates corresponding PDF files in the same directory. Finally, it merges these pdf files into one and removes the `temp` directory.
-
-
-### Dependencies
- - TeX Live or MikTeX
- - Python 3
- - [dateutil](https://labix.org/python-dateutil)
- - [PyPDF2](http://mstamy2.github.io/PyPDF2)
 
 
 ## License
