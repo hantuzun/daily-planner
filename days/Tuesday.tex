@@ -5,6 +5,8 @@
 \usepackage[a5paper, margin=1cm]{geometry}
 \usepackage{array}
 \usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{hhline}
 \usepackage[x11names]{xcolor}
 \usepackage[table]{xcolor}
 
@@ -20,6 +22,10 @@
 	\arrayrulecolor{black}
 }
 
+\newcommand*{\blackline}{%
+	\hhline{~|~|*{1}{-}}
+}
+
 % TODO: Make this reactive
 \newcommand\textbox[1]{%
 	\parbox{3.5cm}{#1}%
@@ -28,7 +34,7 @@
 \begin{document}
 	\raggedleft
 	
-	\begin{tabular}{ |r|r|p{35mm}|p{55mm}| }
+	\begin{tabular}{|r|r|>{\centering\arraybackslash}p{35mm}|p{55mm}| }
 		\hline
 		\multicolumn{4}{|c|}{ 
 			\cellcolor{anti-flashwhite}
